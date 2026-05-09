@@ -147,38 +147,155 @@ a { color: inherit; }
 /* ── Mobile Fallback (hidden by default, shown via JS) ─────── */
 #mobile-fallback {
   display: none;
-  flex-direction: column;
 }
-#mobile-fallback.visible { display: flex; }
+#mobile-fallback.visible { display: block; }
 
-.mobile-video-wrap {
-  position: relative;
-  width: 100%;
-  height: 56vw;
-  min-height: 240px;
+/* Fixed full-screen video */
+.mob-video-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  z-index: 0;
   overflow: hidden;
-  background: #1a2010;
+  background: #0e1a08;
 }
-.mobile-video-wrap video {
+.mob-video-bg video {
   width: 100%; height: 100%;
   object-fit: cover;
 }
-.mobile-hero-content {
-  padding: 56px 24px 48px;
-  background: var(--cream);
+
+/* All scrolling content sits above the fixed video */
+.mob-scroll {
+  position: relative;
+  z-index: 1;
 }
-.mobile-hero-content h1 {
-  font-size: clamp(2rem, 8vw, 3.2rem);
+
+/* Hero: full-screen, transparent so video shows through */
+.mob-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  /* gradient scrim for text readability */
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0%,
+    transparent 30%,
+    rgba(0,0,0,0.65) 75%,
+    rgba(0,0,0,0.8) 100%
+  );
+}
+.mob-hero-inner {
+  margin-top: auto;
+  padding: 0 24px 40px;
+}
+.mob-hero .eyebrow {
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.75rem;
+}
+.mob-hero h1 {
+  font-size: clamp(2.2rem, 9vw, 3rem);
   font-weight: 300;
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -0.02em;
+  color: var(--white);
   margin-bottom: 1rem;
 }
-.mobile-hero-content .hero-sub {
+.mob-hero p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #555;
+  color: rgba(255,255,255,0.8);
   margin-bottom: 2rem;
+}
+.mob-scroll-hint {
+  text-align: center;
+  padding: 20px 0 24px;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Mission: translucent cream — blends video into page */
+.mob-mission {
+  background: rgba(225, 223, 217, 0.93);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 60px 28px;
+}
+.mob-mission p {
+  font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+  font-weight: 300;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--black);
+}
+.mob-mission .mission-attr {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.35);
+}
+
+/* Programs: solid cream — fully covers video */
+.mob-programs {
+  background: var(--cream);
+  padding: 60px 28px;
+}
+.mob-section-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 2rem;
+}
+.mob-prog-list {
+  display: flex;
+  flex-direction: column;
+}
+.mob-prog {
+  padding: 24px 0;
+  border-bottom: 1px solid #d0cdc7;
+}
+.mob-prog:first-child { border-top: 1px solid #d0cdc7; }
+.mob-prog h3 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: var(--black);
+}
+.mob-prog p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* Stats: dark panel */
+.mob-stats {
+  background: var(--black);
+  padding: 60px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 24px;
+}
+.mob-stat-num {
+  display: block;
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+.mob-stat-label {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.5);
 }
 
 /* ── Scroll Scene ──────────────────────────────────────────── */
@@ -708,6 +825,7 @@ a { color: inherit; }
    MOBILE  (< 768px)
 ============================================================ */
 @media (max-width: 767px) {
+  /* Hide desktop canvas experience entirely */
   #scroll-scene,
   #hero-canvas,
   .scene-block,
@@ -715,10 +833,17 @@ a { color: inherit; }
   #laptop-ui,
   .wifi-signal { display: none !important; }
 
-  #mobile-fallback { display: flex !important; }
+  /* Show mobile immersive layout */
+  #mobile-fallback { display: block !important; }
 
-  #below-fold { display: block; }
+  /* Below-fold: position above the fixed video */
+  #below-fold {
+    position: relative;
+    z-index: 1;
+    background: var(--cream);
+  }
 
+  /* Layout fixes */
   .container { padding: 0 20px; }
   .section-full { padding: 72px 0; }
 
@@ -733,9 +858,6 @@ a { color: inherit; }
   .footer-cols { grid-template-columns: 1fr; gap: 32px; }
 
   .section-header h2 { font-size: 2rem; }
-  .programs-grid { grid-template-columns: 1fr; }
-  .stats-row { grid-template-columns: 1fr; gap: 32px; }
-  .stat-divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); border-bottom: 1px solid rgba(255,255,255,0.15); padding: 32px 0; }
 }
 
 
@@ -750,13 +872,12 @@ a { color: inherit; }
   #laptop-ui,
   .wifi-signal { display: none !important; }
 
-  #mobile-fallback { display: flex !important; }
-  /* Show single still instead of video */
-  .mobile-video-wrap video { display: none; }
-  .mobile-video-wrap {
+  #mobile-fallback { display: block !important; }
+
+  /* Swap video for a still frame */
+  .mob-video-bg video { display: none; }
+  .mob-video-bg {
     background: url('public/frames/frame_0200.jpg') center/cover no-repeat;
-    height: 60vw;
-    max-height: 520px;
   }
 
   .reveal {

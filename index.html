@@ -57,18 +57,67 @@
        MOBILE / REDUCED MOTION FALLBACK
   ============================================================ -->
   <div id="mobile-fallback" hidden>
-    <div class="mobile-video-wrap">
+
+    <!-- Fixed full-screen video background -->
+    <div class="mob-video-bg" aria-hidden="true">
       <video autoplay muted loop playsinline poster="public/frames/frame_0001.jpg">
         <source src="public/hero.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="mobile-hero-content">
-      <span class="eyebrow">Western North Carolina</span>
-      <h1>Connecting Appalachia,<br>one device at a time.</h1>
-      <p class="hero-sub">Free refurbished laptops and wifi for families<br>who need them most.</p>
-      <a href="https://www.throughthetrees.us/device-request" class="btn-primary btn-large">Request a Device</a>
-    </div>
-  </div>
+
+    <!-- Scrolling content layers over the video -->
+    <div class="mob-scroll">
+
+      <!-- Hero: sits over video, text anchored to bottom -->
+      <section class="mob-hero">
+        <div class="mob-hero-inner">
+          <span class="eyebrow">Western North Carolina</span>
+          <h1>Connecting Appalachia,<br>one device at a time.</h1>
+          <p>Free refurbished laptops and wifi for families who need them most.</p>
+          <a href="https://www.throughthetrees.us/device-request" class="btn-primary btn-large">Request a Device</a>
+        </div>
+        <p class="mob-scroll-hint" aria-hidden="true">↓ scroll to explore</p>
+      </section>
+
+      <!-- Mission: translucent cream slides over video -->
+      <section class="mob-mission">
+        <p>"Bridging the digital divide in Western North Carolina — giving someone the tool they need to apply for a job, earn a degree, or simply stay connected to their community."</p>
+        <span class="mission-attr">Through the Trees, est. 2020</span>
+      </section>
+
+      <!-- Programs: solid cream, fully covers video -->
+      <section class="mob-programs">
+        <span class="mob-section-label">What We Do</span>
+        <div class="mob-prog-list">
+          <div class="mob-prog">
+            <h3>Free Devices</h3>
+            <p>Refurbished laptops, phones, and tablets for qualifying households — school, work, and everything in between.</p>
+          </div>
+          <div class="mob-prog">
+            <h3>Wifi Access</h3>
+            <p>Hotspots for rural households where broadband never arrived — so connectivity isn't a luxury.</p>
+          </div>
+          <div class="mob-prog">
+            <h3>Resale Shop</h3>
+            <p>Affordable refurbished tech in Brevard. Every purchase funds the free device program.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats: dark section -->
+      <section class="mob-stats">
+        <div class="mob-stat">
+          <span class="mob-stat-num">16M+</span>
+          <span class="mob-stat-label">U.S. students without adequate home devices</span>
+        </div>
+        <div class="mob-stat">
+          <span class="mob-stat-num">1.1M+</span>
+          <span class="mob-stat-label">NC households without accessible broadband</span>
+        </div>
+      </section>
+
+    </div><!-- /.mob-scroll -->
+  </div><!-- /#mobile-fallback -->
 
   <!-- ============================================================
        SCROLL SCENE — canvas + overlays
